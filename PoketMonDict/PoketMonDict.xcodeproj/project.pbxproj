@@ -15,6 +15,8 @@
 		B634C48425B8615D0057AA67 /* PoketBookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B634C48325B8615D0057AA67 /* PoketBookController.swift */; };
 		B6FD337025B95CEC00763161 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FD336F25B95CEC00763161 /* Extension.swift */; };
 		B6FD337525B971AB00763161 /* PoketmonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FD337425B971AB00763161 /* PoketmonCell.swift */; };
+		B6FD337925B9987400763161 /* Poketmon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FD337825B9987400763161 /* Poketmon.swift */; };
+		B6FD337D25B9992700763161 /* PoketmonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FD337C25B9992700763161 /* PoketmonService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		B634C48325B8615D0057AA67 /* PoketBookController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoketBookController.swift; sourceTree = "<group>"; };
 		B6FD336F25B95CEC00763161 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		B6FD337425B971AB00763161 /* PoketmonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoketmonCell.swift; sourceTree = "<group>"; };
+		B6FD337825B9987400763161 /* Poketmon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poketmon.swift; sourceTree = "<group>"; };
+		B6FD337C25B9992700763161 /* PoketmonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoketmonService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +64,8 @@
 		B634C46A25B860830057AA67 /* PoketMonDict */ = {
 			isa = PBXGroup;
 			children = (
+				B6FD337B25B9991400763161 /* Service */,
+				B6FD337725B9986100763161 /* Model */,
 				B6FD337325B9719100763161 /* Views */,
 				B6FD336E25B95CDB00763161 /* Utils */,
 				B634C48225B8613E0057AA67 /* Controllers */,
@@ -95,6 +101,22 @@
 				B6FD337425B971AB00763161 /* PoketmonCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		B6FD337725B9986100763161 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B6FD337825B9987400763161 /* Poketmon.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B6FD337B25B9991400763161 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				B6FD337C25B9992700763161 /* PoketmonService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -167,10 +189,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6FD337D25B9992700763161 /* PoketmonService.swift in Sources */,
 				B634C46C25B860830057AA67 /* AppDelegate.swift in Sources */,
 				B6FD337525B971AB00763161 /* PoketmonCell.swift in Sources */,
 				B634C46E25B860830057AA67 /* SceneDelegate.swift in Sources */,
 				B634C48425B8615D0057AA67 /* PoketBookController.swift in Sources */,
+				B6FD337925B9987400763161 /* Poketmon.swift in Sources */,
 				B6FD337025B95CEC00763161 /* Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

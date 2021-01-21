@@ -10,10 +10,12 @@ import UIKit
 let reuseableIdentifier = "poketbookcell"
 
 class PoketBookController:UICollectionViewController {
+    //MARK: Properties
+    let poketmonService = PoketmonService()
+    
     //MARK:Init
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("Hello World")
         
         configureViewComponent()
     }
@@ -54,6 +56,7 @@ class PoketBookController:UICollectionViewController {
         adjustColor()
         
         collectionView.register(PoketmonCell.self, forCellWithReuseIdentifier: reuseableIdentifier)
+        poketmonService.fetchPoketmons()
         
     }
 }
