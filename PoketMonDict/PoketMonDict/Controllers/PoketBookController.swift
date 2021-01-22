@@ -12,6 +12,11 @@ let reuseableIdentifier = "poketbookcell"
 class PoketBookController:UICollectionViewController {
     //MARK: Properties
     let poketmonService = PoketmonService()
+    var poketmons = [Poketmon]() {
+        didSet {
+            self.collectionView.reloadData()
+        }
+    }
     
     //MARK:Init
     override func viewDidLoad() {
@@ -57,6 +62,7 @@ class PoketBookController:UICollectionViewController {
         
         collectionView.register(PoketmonCell.self, forCellWithReuseIdentifier: reuseableIdentifier)
         poketmonService.fetchPoketmons()
+        poketmonService.delegate = self
         
     }
 }
@@ -64,12 +70,14 @@ class PoketBookController:UICollectionViewController {
 //MARK: collectionViewCell delegate func
 extension PoketBookController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 6
+        return poketmons.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseableIdentifier, for: indexPath) as! PoketmonCell
         
+        let poketmon = self.poketmons[indexPath.row]
+        cell.poketmon = poketmon
         return cell
     }
 }
@@ -83,4 +91,13 @@ extension PoketBookController:UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 32, left: 8, bottom: 8, right: 8)
     }
+}
+
+extension PoketBookController: PoketmonServiceProtocol {
+    func poketmonService(poketmons: [Poketmon]) {
+        print("asd")
+        self.poketmons = poketmons
+    }
+    
+    
 }

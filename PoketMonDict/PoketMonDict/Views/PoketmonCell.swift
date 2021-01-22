@@ -12,6 +12,14 @@ import UIKit
 class PoketmonCell:UICollectionViewCell {
     
     //MARK: Properties
+    var poketmon:Poketmon? {
+        didSet {
+            guard let poketmon = self.poketmon else{
+                return
+            }
+            self.poketmonName.text = poketmon.name
+        }
+    }
     lazy var imageView:UIImageView = {
         let iv = UIImageView()
         iv.backgroundColor = UIColor.systemGroupedBackground

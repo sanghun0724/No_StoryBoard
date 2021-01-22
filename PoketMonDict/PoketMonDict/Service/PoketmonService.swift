@@ -7,8 +7,15 @@
 
 import Foundation
 
+protocol PoketmonServiceProtocol {
+    func poketmonService(poketmons:[Poketmon])
+    
+    
+}
+
 class PoketmonService {
     let url = "https://pokemon.treduler.pro/"
+    var delegate:PoketmonServiceProtocol?
     
     func fetchPoketmons() {
         if let url = URL(string: url) {
@@ -20,7 +27,9 @@ class PoketmonService {
                     if let data = data {
                         do {
                             let poketmons = try JSONDecoder().decode([Poketmon].self, from: data)
-                            print(poketmons)
+                            DispatchQueue.main.async {
+                                self.delegate?.poketmonService(poketmons: poketmons)
+                            }
                         } catch let error {
                             print("데이터업서요")
                             print(error.localizedDescription)
