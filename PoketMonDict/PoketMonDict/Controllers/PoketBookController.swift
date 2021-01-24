@@ -18,9 +18,8 @@ class PoketBookController:UICollectionViewController {
         }
     }
     
-    lazy var infoView:UIView = {
-       let view = UIView()
-        view.backgroundColor = .systemBackground
+    lazy var infoView:InfoView = {
+       let view = InfoView()
         return view
     }()
     
@@ -73,7 +72,10 @@ class PoketBookController:UICollectionViewController {
         collectionView.addSubview(infoView)
         infoView.translatesAutoresizingMaskIntoConstraints = false
         infoView.centerXAnchor.constraint(equalTo:collectionView.centerXAnchor).isActive = true
-        infoView.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor,constant: -55).isActive = true 
+        infoView.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor,constant: -55).isActive = true
+        infoView.heightAnchor.constraint(equalToConstant: 500).isActive = true
+        infoView.widthAnchor.constraint(equalToConstant: view.frame.width - 80).isActive = true
+        
         
     }
 }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,7 @@
 		B634C47525B860870057AA67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B634C47425B860870057AA67 /* Assets.xcassets */; };
 		B634C47825B860870057AA67 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B634C47625B860870057AA67 /* LaunchScreen.storyboard */; };
 		B634C48425B8615D0057AA67 /* PoketBookController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B634C48325B8615D0057AA67 /* PoketBookController.swift */; };
+		B6C3CA9F25BD9BE400946AC1 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6C3CA9E25BD9BE400946AC1 /* InfoView.swift */; };
 		B6FD337025B95CEC00763161 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FD336F25B95CEC00763161 /* Extension.swift */; };
 		B6FD337525B971AB00763161 /* PoketmonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FD337425B971AB00763161 /* PoketmonCell.swift */; };
 		B6FD337925B9987400763161 /* Poketmon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6FD337825B9987400763161 /* Poketmon.swift */; };
@@ -32,6 +33,7 @@
 		B634C47725B860870057AA67 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B634C47925B860870057AA67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B634C48325B8615D0057AA67 /* PoketBookController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoketBookController.swift; sourceTree = "<group>"; };
+		B6C3CA9E25BD9BE400946AC1 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		B6FD336F25B95CEC00763161 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		B6FD337425B971AB00763161 /* PoketmonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PoketmonCell.swift; sourceTree = "<group>"; };
 		B6FD337825B9987400763161 /* Poketmon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Poketmon.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				B6FD337425B971AB00763161 /* PoketmonCell.swift */,
+				B6C3CA9E25BD9BE400946AC1 /* InfoView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -140,7 +143,6 @@
 				016F9B43042C3A1828DE8E35 /* Pods-PoketMonDict.debug.xcconfig */,
 				93BEC7573E712C0888FFC2F3 /* Pods-PoketMonDict.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -258,6 +260,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6C3CA9F25BD9BE400946AC1 /* InfoView.swift in Sources */,
 				B6FD337D25B9992700763161 /* PoketmonService.swift in Sources */,
 				B634C46C25B860830057AA67 /* AppDelegate.swift in Sources */,
 				B6FD337525B971AB00763161 /* PoketmonCell.swift in Sources */,
