@@ -18,6 +18,12 @@ class PoketBookController:UICollectionViewController {
         }
     }
     
+    lazy var infoView:UIView = {
+       let view = UIView()
+        view.backgroundColor = .systemBackground
+        return view
+    }()
+    
     //MARK:Init
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +69,11 @@ class PoketBookController:UICollectionViewController {
         collectionView.register(PoketmonCell.self, forCellWithReuseIdentifier: reuseableIdentifier)
         poketmonService.fetchPoketmons()
         poketmonService.delegate = self
+        
+        collectionView.addSubview(infoView)
+        infoView.translatesAutoresizingMaskIntoConstraints = false
+        infoView.centerXAnchor.constraint(equalTo:collectionView.centerXAnchor).isActive = true
+        infoView.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor,constant: -55).isActive = true 
         
     }
 }

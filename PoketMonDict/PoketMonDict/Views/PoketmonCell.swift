@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import SDWebImage
 
 
 class PoketmonCell:UICollectionViewCell {
@@ -18,6 +18,11 @@ class PoketmonCell:UICollectionViewCell {
                 return
             }
             self.poketmonName.text = poketmon.name
+            guard let imageUrl = self.poketmon?.imageUrl else { return }
+            if let url = URL(string:  imageUrl) {
+                self.imageView.sd_setImage(with: url, completed: nil)
+                // 라이브러리 기능으로 캐시까지 기능 함
+            }
         }
     }
     lazy var imageView:UIImageView = {
@@ -57,10 +62,21 @@ class PoketmonCell:UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: Selector
+    @objc func longPress(sender:UILongPressGestureRecognizer) {
+       
+        if sender.state == UIGestureRecognizer.State.began {
+        print("worhkinbg")
+        }
+    }
+    
     //MARK: Helpers
     func configureViewComponents() {
         self.layer.cornerRadius = 10
         self.layer.masksToBounds = true //뷰 초과해서 삐쭉나오는애들 잘라주기
+        
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(longPress(sender:)))
+        self.addGestureRecognizer(longPressRecognizer)
         
         self.addSubview(imageView)
         imageView.translatesAutoresizingMaskIntoConstraints = false
