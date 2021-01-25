@@ -8,10 +8,16 @@
 import UIKit
 import SDWebImage
 
+protocol PoketmonCellProtocol {
+    func showPopup(poketmon:Poketmon)
+}
+
 
 class PoketmonCell:UICollectionViewCell {
     
     //MARK: Properties
+    var delegate:PoketmonCellProtocol?
+    
     var poketmon:Poketmon? {
         didSet {
             guard let poketmon = self.poketmon else{
@@ -66,7 +72,8 @@ class PoketmonCell:UICollectionViewCell {
     @objc func longPress(sender:UILongPressGestureRecognizer) {
        
         if sender.state == UIGestureRecognizer.State.began {
-        print("worhkinbg")
+            guard let poketmon = self.poketmon else { return }
+            delegate?.showPopup(poketmon:poketmon)
         }
     }
     

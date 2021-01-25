@@ -19,8 +19,14 @@ class PoketBookController:UICollectionViewController {
     }
     
     lazy var infoView:InfoView = {
-       let view = InfoView()
+        let view = InfoView()
         return view
+    }()
+    
+    lazy var blurEffectView:UIVisualEffectView = {
+        let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        return blurEffectView
     }()
     
     //MARK:Init
@@ -41,7 +47,7 @@ class PoketBookController:UICollectionViewController {
     }
     
     func adjustColor() {
-   
+        
         if self.traitCollection.userInterfaceStyle == .dark {
             //다크모드일때
             navigationController?.navigationBar.tintColor = .white
@@ -49,10 +55,11 @@ class PoketBookController:UICollectionViewController {
             //라이트모드일때
             navigationController?.navigationBar.tintColor = .black
         }
-      
+        
     }
     
-   //MARK: Helper
+    //MARK: Helper
+    
     func configureViewComponent() {
         //systemColor -> Light 모드 다크모드 자동으로 바꿔줌 (추천)
         collectionView.backgroundColor = .systemBackground
@@ -69,14 +76,13 @@ class PoketBookController:UICollectionViewController {
         poketmonService.fetchPoketmons()
         poketmonService.delegate = self
         
-        collectionView.addSubview(infoView)
-        infoView.translatesAutoresizingMaskIntoConstraints = false
-        infoView.centerXAnchor.constraint(equalTo:collectionView.centerXAnchor).isActive = true
-        infoView.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor,constant: -55).isActive = true
-        infoView.heightAnchor.constraint(equalToConstant: 500).isActive = true
-        infoView.widthAnchor.constraint(equalToConstant: view.frame.width - 80).isActive = true
-        
-        
+        collectionView.addSubview(blurEffectView)
+        blurEffectView.translatesAutoresizingMaskIntoConstraints = false
+        blurEffectView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        blurEffectView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        blurEffectView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        blurEffectView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        blurEffectView.alpha = 0
     }
 }
 
@@ -91,6 +97,7 @@ extension PoketBookController {
         
         let poketmon = self.poketmons[indexPath.row]
         cell.poketmon = poketmon
+        cell.delegate = self
         return cell
     }
 }
@@ -110,6 +117,25 @@ extension PoketBookController: PoketmonServiceProtocol {
     func poketmonService(poketmons: [Poketmon]) {
         print("asd")
         self.poketmons = poketmons
+    }
+}
+
+extension PoketBookController:PoketmonCellProtocol {
+    func showPopup(poketmon: Poketmon) {
+        collectionView.addSubview(infoView)
+        infoView.translatesAutoresizingMaskIntoConstraints = false
+        infoView.centerXAnchor.constraint(equalTo:collectionView.centerXAnchor).isActive = true
+        infoView.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor,constant: -55).isActive = true
+        infoView.heightAnchor.constraint(equalToConstant: 500).isActive = true
+        infoView.widthAnchor.constraint(equalToConstant: view.frame.width - 80).isActive = true
+        infoView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+        infoView.alpha = 0
+        
+        UIView.animate(withDuration: 0.3, animations: {
+            self.blurEffectView.alpha = 1
+            self.infoView.transform = .identity
+            self.infoView.alpha = 1
+        })
     }
     
     
