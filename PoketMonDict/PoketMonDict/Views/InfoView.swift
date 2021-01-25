@@ -9,7 +9,7 @@ import UIKit
 import SDWebImage
 
 protocol InfoViewProtocol {
-    func removeInfoView()
+    func removeInfoView(poketmon:Poketmon)
 }
 
 class InfoView:UIView {
@@ -120,7 +120,10 @@ class InfoView:UIView {
     
     //MARK: Selectors
     @objc func goToDetailButtonTapped() {
-        delegate?.removeInfoView()
+        guard let poketmon = self.poketmon else {
+            return
+        }
+        delegate?.removeInfoView(poketmon: poketmon)
     }
     
     //MARK: Override

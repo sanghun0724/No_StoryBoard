@@ -156,10 +156,10 @@ extension PoketBookController:PoketmonCellProtocol {
 }
 
 extension PoketBookController:InfoViewProtocol {
-    func removeInfoView() {
+    func removeInfoView(poketmon:Poketmon) {
         removeInfoViewAnimation()
         let poketmonDetailController = PoketmonDetailController()
-        
+        poketmonDetailController.poketmon = poketmon
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.3, execute: {
             self.navigationController?.pushViewController(poketmonDetailController, animated: true)
         })
