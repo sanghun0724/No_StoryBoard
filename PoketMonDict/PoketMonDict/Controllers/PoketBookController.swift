@@ -45,6 +45,9 @@ class PoketBookController:UICollectionViewController {
     @objc func searchTapped() {
         print(" 1")
     }
+    @objc func blurViewTapped() {
+        removeInfoViewAnimation()
+    }
     
     func adjustColor() {
         
@@ -59,6 +62,14 @@ class PoketBookController:UICollectionViewController {
     }
     
     //MARK: Helper
+    func removeInfoViewAnimation() {
+        UIView.animate(withDuration: 0.3) {
+            self.blurEffectView.alpha = 0
+            self.infoView.alpha = 0
+            self.infoView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+        }
+        self.infoView.removeFromSuperview()
+    }
     
     func configureViewComponent() {
         //systemColor -> Light 모드 다크모드 자동으로 바꿔줌 (추천)
@@ -83,6 +94,9 @@ class PoketBookController:UICollectionViewController {
         blurEffectView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         blurEffectView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         blurEffectView.alpha = 0
+        
+        let blurViewTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(blurViewTapped))
+        blurEffectView.addGestureRecognizer(blurViewTapGestureRecognizer)
     }
 }
 
@@ -122,7 +136,7 @@ extension PoketBookController: PoketmonServiceProtocol {
 
 extension PoketBookController:PoketmonCellProtocol {
     func showPopup(poketmon: Poketmon) {
-        collectionView.addSubview(infoView)
+        self.view.addSubview(infoView)
         infoView.translatesAutoresizingMaskIntoConstraints = false
         infoView.centerXAnchor.constraint(equalTo:collectionView.centerXAnchor).isActive = true
         infoView.centerYAnchor.constraint(equalTo: collectionView.centerYAnchor,constant: -55).isActive = true
@@ -130,12 +144,20 @@ extension PoketBookController:PoketmonCellProtocol {
         infoView.widthAnchor.constraint(equalToConstant: view.frame.width - 80).isActive = true
         infoView.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
         infoView.alpha = 0
+        infoView.delegate = self
+        infoView.poketmon = poketmon
         
         UIView.animate(withDuration: 0.3, animations: {
             self.blurEffectView.alpha = 1
             self.infoView.transform = .identity
             self.infoView.alpha = 1
         })
+    }
+}
+
+extension PoketBookController:InfoViewProtocol {
+    func removeInfoView() {
+        removeInfoViewAnimation()
     }
     
     
