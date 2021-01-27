@@ -18,6 +18,14 @@ class PoketBookController:UICollectionViewController {
         }
     }
     
+    lazy var searchBar:UISearchBar = {
+       let searchBar = UISearchBar()
+        searchBar.sizeToFit() //최대한 확장할수 있게끔
+        searchBar.showsCancelButton = true
+        searchBar.delegate = self
+        return searchBar
+    }()
+    
     lazy var infoView:InfoView = {
         let view = InfoView()
         return view
@@ -43,8 +51,9 @@ class PoketBookController:UICollectionViewController {
     
     //MARK: Selector
     @objc func searchTapped() {
-        print(" 1")
+        configureSearchBar()
     }
+    
     @objc func blurViewTapped() {
         removeInfoViewAnimation()
     }
@@ -62,6 +71,18 @@ class PoketBookController:UICollectionViewController {
     }
     
     //MARK: Helper
+    func removeSearchBar() {
+        self.navigationItem.titleView = nil
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.search, target: self, action: #selector(searchTapped))
+        adjustColor()
+    }
+    
+    func configureSearchBar() {
+        self.navigationItem.titleView = searchBar
+        self.navigationItem.rightBarButtonItem = nil
+        searchBar.becomeFirstResponder()
+    }
+    
     func navigationToDetailController(poketmon:Poketmon) {
         let poketmonDetailController = PoketmonDetailController()
         poketmonDetailController.poketmon = poketmon
@@ -176,7 +197,14 @@ extension PoketBookController:InfoViewProtocol {
             self.navigationToDetailController(poketmon: poketmon)
         })
     }
+}
+
+extension PoketBookController:UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        removeSearchBar()
+    }
     
-    
-    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print(searchText)
+    }
 }
