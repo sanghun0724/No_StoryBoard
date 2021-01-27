@@ -62,6 +62,12 @@ class PoketBookController:UICollectionViewController {
     }
     
     //MARK: Helper
+    func navigationToDetailController(poketmon:Poketmon) {
+        let poketmonDetailController = PoketmonDetailController()
+        poketmonDetailController.poketmon = poketmon
+        self.navigationController?.pushViewController(poketmonDetailController, animated: true)
+    }
+    
     func removeInfoViewAnimation() {
         UIView.animate(withDuration: 0.3) {
             self.blurEffectView.alpha = 0
@@ -104,6 +110,13 @@ class PoketBookController:UICollectionViewController {
 extension PoketBookController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return poketmons.count
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let poketmon = self.poketmons[indexPath.row]
+        
+        navigationToDetailController(poketmon: poketmon)
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -158,10 +171,9 @@ extension PoketBookController:PoketmonCellProtocol {
 extension PoketBookController:InfoViewProtocol {
     func removeInfoView(poketmon:Poketmon) {
         removeInfoViewAnimation()
-        let poketmonDetailController = PoketmonDetailController()
-        poketmonDetailController.poketmon = poketmon
+       
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.3, execute: {
-            self.navigationController?.pushViewController(poketmonDetailController, animated: true)
+            self.navigationToDetailController(poketmon: poketmon)
         })
     }
     
