@@ -18,6 +18,9 @@ class PoketBookController:UICollectionViewController {
         }
     }
     
+    var searchPoketmons = [Poketmon]()
+    var searchMode = false
+        
     lazy var searchBar:UISearchBar = {
        let searchBar = UISearchBar()
         searchBar.sizeToFit() //최대한 확장할수 있게끔
@@ -130,20 +133,35 @@ class PoketBookController:UICollectionViewController {
 //MARK: collectionViewCell delegate func
 extension PoketBookController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return poketmons.count
+        if searchMode == false {
+            return poketmons.count
+        } else {
+            return searchPoketmons.count
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let poketmon = self.poketmons[indexPath.row]
+        var poketmon:Poketmon?
         
-        navigationToDetailController(poketmon: poketmon)
-        
+        if searchMode == false {
+             poketmon = self.poketmons[indexPath.row]
+        } else {
+            poketmon = self.searchPoketmons[indexPath.row]
+        }
+        if poketmon != nil {
+            navigationToDetailController(poketmon: poketmon!)
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseableIdentifier, for: indexPath) as! PoketmonCell
+        var poketmon:Poketmon?
+        if searchMode == false {
+            poketmon = self.poketmons[indexPath.row]
+        } else {
+            poketmon = self.searchPoketmons[indexPath.row]
+        }
         
-        let poketmon = self.poketmons[indexPath.row]
         cell.poketmon = poketmon
         cell.delegate = self
         return cell
@@ -202,9 +220,24 @@ extension PoketBookController:InfoViewProtocol {
 extension PoketBookController:UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         removeSearchBar()
+        self.searchBar.text = ""
+        searchMode = false
+        collectionView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print(searchText)
+        var searchPoketmons = [Poketmon]()
+        if searchText == "" {
+            searchMode = false
+        } else {
+            searchMode = true
+            let matchingPoketmons = self.poketmons.filter{ (poketmon) -> Bool in
+                guard let name = poketmon.name else { return false }
+                return name.lowercased().contains(searchText.lowercased())
+            }
+            self.searchPoketmons = matchingPoketmons
+        }
+        
+        collectionView.reloadData()
     }
 }
