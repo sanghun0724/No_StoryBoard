@@ -10,6 +10,7 @@ import UIKit
 let reuseableIdentifier = "poketbookcell"
 
 class PoketBookController:UICollectionViewController {
+    // 원래는 기본 ViewController로 처음시작으로 설정되어있음 so SceneDelegate 로 가서 이 CollectionViewr가 처음 시작할때 뜰수 있도록 설정해 줘야함 
     //MARK: Properties
     let poketmonService = PoketmonService()
     var poketmons = [Poketmon]() {
@@ -48,8 +49,8 @@ class PoketBookController:UICollectionViewController {
     }
     //MARK: override
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        // 디바이스의 테마가 변경될때마다 호출
-        adjustColor()
+        // 디바이스의 테마가 변경될때마다 호출 (사용자가 설정을 건드려서 테마 바꿧을때! )
+        adjustColor()  // <- 자동으로 적용되게
     }
     
     //MARK: Selector
@@ -102,16 +103,17 @@ class PoketBookController:UICollectionViewController {
     }
     
     func configureViewComponent() {
-        //systemColor -> Light 모드 다크모드 자동으로 바꿔줌 (추천)
+        //systemColor -> Light 모드 다크모드 자동으로 바꿔줌 (추천) 영좋네!
         collectionView.backgroundColor = .systemBackground
         navigationController?.navigationBar.barTintColor =  UIColor.mainColor
-        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.navigationBar.isTranslucent = false //navigationBar가 기본적으로 살짝투명효과가 있음  -> 컬러가 살짝 연하게 보임 -> false해줌으로써 원래색깔로
         
         self.title = "포켓몬도감"
         
+        //검색 돋보기 만들기 SearchButton
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.search, target: self, action: #selector(searchTapped))
         
-        adjustColor()
+        adjustColor() //처음 뷰만들어질때 한번 호출 
         
         collectionView.register(PoketmonCell.self, forCellWithReuseIdentifier: reuseableIdentifier)
         poketmonService.fetchPoketmons()

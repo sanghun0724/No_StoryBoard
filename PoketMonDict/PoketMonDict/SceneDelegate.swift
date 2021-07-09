@@ -14,14 +14,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
        
+        //rootViewcontroller가 어느건지 지정
         guard let scene = (scene as? UIWindowScene) else { return }
         self.window = UIWindow(windowScene: scene)
         
-        let poketBookController = PoketBookController(collectionViewLayout: UICollectionViewFlowLayout())
-        let rootViewController = UINavigationController(rootViewController: poketBookController)
-        self.window?.rootViewController = rootViewController
-        self.window?.makeKeyAndVisible()
-        
+        let poketBookController = PoketBookController(collectionViewLayout: UICollectionViewFlowLayout()) // 객체 가져오면서 레이아웃형식
+        let rootViewController = UINavigationController(rootViewController: poketBookController) //네이게이션 컨트롤러로
+        self.window?.rootViewController = rootViewController //할당
+        self.window?.makeKeyAndVisible() // show the window 
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
